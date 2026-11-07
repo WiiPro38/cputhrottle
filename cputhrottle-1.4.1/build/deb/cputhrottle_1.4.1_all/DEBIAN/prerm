@@ -1,0 +1,7 @@
+#!/bin/sh
+set -e
+if [ -d /run/systemd/system ] && { [ "$1" = remove ] || [ "$1" = purge ]; }; then
+    systemctl disable --now cputhrottle-sampler.service || true
+    systemctl disable cputhrottle-init.service || true
+fi
+exit 0

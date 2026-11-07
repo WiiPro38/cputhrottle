@@ -1,0 +1,386 @@
+#!/usr/bin/python3
+"""cputhrottle-helper: مساعد يعمل بصلاحيات root (عبر pkexec) لتغيير إعدادات المعالج.
+
+الاستخدام:
+    cputhrottle-helper apply governor=performance max=3000000 turbo=on pl1=28000000 ...
+    cputhrottle-helper apply-boot  (خدمة الإقلاع: تطبّق الإعدادات المحفوظة لأول مستخدم فعلي فعّل التبديل التلقائي)
+    cputhrottle-helper sample      (خدمة systemd: تكتب قراءات الواط الحية في /run/cputhrottle/power.json)
+
+المفاتيح المدعومة:
+    governor  epp  min  max (kHz)  turbo (on/off)
+    pl1  pl2  (ميكرو واط، حد الطاقة الطويل/القصير عبر Intel RAPL)
+    profile   (وضع الطاقة للجهاز: platform_profile)
+    smt (on/off)   cores (عدد الأنوية المنطقية المفعّلة)
+
+كل القيم يتم التحقق منها قبل الكتابة في /sys، ولا يوجد أي استدعاء لـ shell.
+"""
+import glob
+import json
+import os
+import pwd
+import signal
+import stat
+import sys
+import time
+
+CPU = "/sys/devices/system/cpu"
+RAPL = "/sys/class/powercap/intel-rapl:0"
+PLATFORM = "/sys/firmware/acpi/platform_profile"
+
+
+def rd(path, default=None):
+    try:
+        with open(path) as f:
+            return f.read().strip()
+    except OSError:
+        return default
+
+
+def wr(path, value):
+    with open(path, "w") as f:
+        f.write(str(value))
+
+
+def cpufreq_dirs():
+    return sorted(glob.glob(f"{CPU}/cpu[0-9]*/cpufreq"))
+
+
+def all_cpu_ids():
+    ids = []
+    for p in glob.glob(f"{CPU}/cpu[0-9]*"):
+        name = os.path.basename(p)[3:]
+        if name.isdigit():
+            ids.append(int(name))
+    return sorted(ids)
+
+
+# ───────────── المعالج: governor / EPP / ترددات / turbo ─────────────
+def set_governor(value):
+    available = (rd(f"{CPU}/cpu0/cpufreq/scaling_available_governors", "") or "").split()
+    if value not in available:
+        raise ValueError(f"governor غير مدعوم: {value}")
+    for d in cpufreq_dirs():
+        wr(f"{d}/scaling_governor", value)
+
+
+def freq_range():
+    lo = int(rd(f"{CPU}/cpu0/cpufreq/cpuinfo_min_freq", "0"))
+    hi = int(rd(f"{CPU}/cpu0/cpufreq/cpuinfo_max_freq", "0"))
+    return lo, hi
+
+
+def set_max(value):
+    khz = int(value)
+    lo, hi = freq_range()
+    if not lo <= khz <= hi:
+        raise ValueError(f"التردد الأقصى خارج النطاق ({lo}-{hi})")
+    for d in cpufreq_dirs():
+        cur_min = int(rd(f"{d}/scaling_min_freq", "0"))
+        if cur_min > khz:  # لا يمكن أن يكون الأدنى أكبر من الأقصى
+            wr(f"{d}/scaling_min_freq", khz)
+        wr(f"{d}/scaling_max_freq", khz)
+
+
+def set_min(value):
+    khz = int(value)
+    lo, hi = freq_range()
+    if not lo <= khz <= hi:
+        raise ValueError(f"التردد الأدنى خارج النطاق ({lo}-{hi})")
+    for d in cpufreq_dirs():
+        cur_max = int(rd(f"{d}/scaling_max_freq", "0"))
+        if khz > cur_max:
+            raise ValueError("التردد الأدنى أكبر من الأقصى الحالي")
+        wr(f"{d}/scaling_min_freq", khz)
+
+
+def set_turbo(value):
+    if value not in ("on", "off"):
+        raise ValueError("turbo يجب أن يكون on أو off")
+    intel = f"{CPU}/intel_pstate/no_turbo"
+    boost = f"{CPU}/cpufreq/boost"
+    if os.path.exists(intel):
+        wr(intel, "0" if value == "on" else "1")
+    elif os.path.exists(boost):
+        wr(boost, "1" if value == "on" else "0")
+    else:
+        raise ValueError("المعالج لا يدعم التحكم في Turbo Boost")
+
+
+def set_epp(value):
+    available = (rd(f"{CPU}/cpu0/cpufreq/energy_performance_available_preferences", "") or "").split()
+    if value not in available:
+        raise ValueError(f"EPP غير مدعوم: {value}")
+    for d in cpufreq_dirs():
+        wr(f"{d}/energy_performance_preference", value)
+
+
+# ───────────── حدود الطاقة (RAPL) ─────────────
+def rapl_index(kind):
+    for i in range(4):
+        if rd(f"{RAPL}/constraint_{i}_name") == kind:
+            return i
+    return None
+
+
+def make_set_pl(kind):
+    def fn(value):
+        uw = int(value)
+        i = rapl_index(kind)
+        if i is None:
+            raise ValueError("حدود الطاقة (RAPL) غير مدعومة في هذا الجهاز")
+        if not 1_000_000 <= uw <= 400_000_000:
+            raise ValueError("حد الطاقة يجب أن يكون بين 1 و 400 واط")
+        if rd(f"{RAPL}/enabled") == "0":
+            try:
+                wr(f"{RAPL}/enabled", "1")
+            except OSError:
+                pass
+        wr(f"{RAPL}/constraint_{i}_power_limit_uw", uw)
+    return fn
+
+
+# ───────────── وضع الطاقة للجهاز ─────────────
+def set_profile(value):
+    choices = (rd(f"{PLATFORM}_choices", "") or "").split()
+    if value not in choices:
+        raise ValueError(f"وضع الطاقة غير مدعوم: {value}")
+    wr(PLATFORM, value)
+
+
+# ───────────── SMT وعدد الأنوية ─────────────
+def set_smt(value):
+    if value not in ("on", "off"):
+        raise ValueError("smt يجب أن يكون on أو off")
+    path = f"{CPU}/smt/control"
+    if rd(path) not in ("on", "off"):
+        raise ValueError("SMT غير مدعوم أو مقفل في هذا الجهاز")
+    wr(path, value)
+
+
+def set_cores(value):
+    n = int(value)
+    ids = all_cpu_ids()
+    if not 1 <= n <= len(ids):
+        raise ValueError(f"عدد الأنوية يجب أن يكون بين 1 و {len(ids)}")
+    smt_off = rd(f"{CPU}/smt/control") in ("off", "forceoff")
+    for pos, i in enumerate(ids):
+        f = f"{CPU}/cpu{i}/online"
+        if not os.path.exists(f):  # cpu0 غالباً بدون ملف online
+            continue
+        want = "1" if pos < n else "0"
+        try:
+            wr(f, want)
+        except OSError:
+            # عند إيقاف SMT لا يمكن إعادة تشغيل الأنوية التوأم، فنتجاهل ذلك
+            if not (want == "1" and smt_off):
+                raise
+
+
+# ───────────── مُقيِّس الطاقة (RAPL) كخدمة ─────────────
+# منذ نواة 5.10 صار الملف energy_uj مقروءاً بصلاحيات root فقط، فيعجز التطبيق عن عرض
+# الواط الحي. هذه الخدمة تقرأه كـ root وتنشر المتوسط اللحظي (واط) فقط في ملف عام القراءة.
+POWERCAP = "/sys/class/powercap"
+RUN_DIR = "/run/cputhrottle"
+RUN_FILE = os.path.join(RUN_DIR, "power.json")
+
+
+def rapl_domains():
+    seen = {}
+    for path in sorted(glob.glob(f"{POWERCAP}/intel-rapl:[0-9]*")):
+        name = rd(f"{path}/name")
+        if name and name not in seen:
+            seen[name] = path
+    return seen
+
+
+def cmd_sample(interval=1.0):
+    if os.geteuid() != 0:
+        print("يجب تشغيله بصلاحيات root", file=sys.stderr)
+        return 3
+    domains = rapl_domains()
+    if not domains:
+        print("لا توجد نطاقات RAPL في هذا الجهاز", file=sys.stderr)
+        return 0
+    os.makedirs(RUN_DIR, mode=0o755, exist_ok=True)
+    stop = []
+    signal.signal(signal.SIGTERM, lambda *_: stop.append(1))
+    signal.signal(signal.SIGINT, lambda *_: stop.append(1))
+    prev = {}
+    while not stop:
+        now = time.monotonic()
+        watts = {}
+        for name, path in domains.items():
+            v = rd(f"{path}/energy_uj")
+            if not (v and v.isdigit()):
+                continue
+            e = int(v)
+            wrap = int(rd(f"{path}/max_energy_range_uj", "0") or 0)
+            if name in prev:
+                de = e - prev[name][0]
+                if de < 0 and wrap:
+                    de += wrap
+                dt = now - prev[name][1]
+                if de >= 0 and dt > 0:
+                    watts[name] = round(de / dt / 1e6, 2)
+            prev[name] = (e, now)
+        if watts:
+            tmp = RUN_FILE + ".tmp"
+            with open(tmp, "w") as f:
+                json.dump({"ts": time.time(), "watts": watts}, f)
+            os.chmod(tmp, 0o644)
+            os.replace(tmp, RUN_FILE)
+        time.sleep(interval)
+    return 0
+
+
+# ───────────── تطبيق الإعدادات المحفوظة عند الإقلاع ─────────────
+# التطبيق يحفظ داخل settings.json قسم "boot" فيه القيم النهائية للوضعين (شاحن/بطارية)،
+# فلا تحتاج الخدمة لمعرفة الأنماط الجاهزة ولا لمسار المستخدم وقت الإقلاع.
+MIN_UID, MAX_UID = 1000, 60000
+MAX_CONF_BYTES = 1_000_000
+BAD_SHELLS = ("nologin", "false")
+
+
+def on_ac_power():
+    """True/False، أو None إن لم نعرف (حاسوب مكتبي بلا بطارية → نعتبره على الشاحن)."""
+    has_batt, ac = False, None
+    for ps in sorted(glob.glob("/sys/class/power_supply/*")):
+        t = rd(f"{ps}/type")
+        if t == "Battery":
+            if rd(f"{ps}/scope", "System") == "Device":
+                continue
+            has_batt = True
+            if rd(f"{ps}/status") in ("Charging", "Full"):
+                return True
+        elif t in ("Mains", "USB"):
+            online = rd(f"{ps}/online")
+            if online == "1":
+                ac = True
+            elif online == "0" and ac is None:
+                ac = False
+    if ac is not None:
+        return ac
+    return None if has_batt else True
+
+
+def read_user_boot(entry):
+    """يقرأ قسم boot من إعدادات المستخدم بأمان: لا روابط رمزية، ملف عادي يملكه المستخدم نفسه."""
+    path = os.path.join(entry.pw_dir, ".config", "cputhrottle", "settings.json")
+    try:
+        fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW)
+    except OSError:
+        return None
+    try:
+        st = os.fstat(fd)
+        if not stat.S_ISREG(st.st_mode) or st.st_uid != entry.pw_uid or st.st_size > MAX_CONF_BYTES:
+            return None
+        with os.fdopen(fd, "r", encoding="utf-8") as f:
+            fd = None
+            data = json.load(f)
+    except (OSError, ValueError):
+        return None
+    finally:
+        if fd is not None:
+            os.close(fd)
+    boot = data.get("boot") if isinstance(data, dict) else None
+    if not isinstance(boot, dict) or not boot.get("enabled"):
+        return None
+    return boot
+
+
+def find_boot_pairs(entries, ac):
+    """أول مستخدم فعلي مفعّل عنده التبديل التلقائي → قاموس {مفتاح: قيمة} صالح الأسماء فقط."""
+    for entry in sorted(entries, key=lambda e: e.pw_uid):
+        if not MIN_UID <= entry.pw_uid < MAX_UID:
+            continue
+        if os.path.basename(entry.pw_shell or "") in BAD_SHELLS:
+            continue
+        boot = read_user_boot(entry)
+        if not boot:
+            continue
+        args = boot.get("ac" if ac is not False else "battery")
+        if not isinstance(args, dict):
+            continue
+        pairs = {str(k): str(v) for k, v in args.items() if str(k) in ACTIONS}
+        if pairs:
+            return entry.pw_name, pairs
+    return None, {}
+
+
+def cmd_apply_boot():
+    if os.geteuid() != 0:
+        print("يجب تشغيله بصلاحيات root", file=sys.stderr)
+        return 3
+    ac = on_ac_power()
+    user, pairs = find_boot_pairs(pwd.getpwall(), ac)
+    if not pairs:
+        print("لا توجد إعدادات إقلاع محفوظة")
+        return 0
+    print(f"تطبيق إعدادات المستخدم {user} ({'شاحن' if ac is not False else 'بطارية'}): "
+          + " ".join(f"{k}={v}" for k, v in pairs.items()))
+    return apply_pairs(pairs)
+
+
+ACTIONS = {
+    "smt": set_smt,
+    "cores": set_cores,
+    "governor": set_governor,
+    "epp": set_epp,
+    "max": set_max,
+    "min": set_min,
+    "turbo": set_turbo,
+    "profile": set_profile,
+    "pl2": make_set_pl("short_term"),
+    "pl1": make_set_pl("long_term"),
+}
+# الترتيب مهم: SMT والأنوية أولاً (لأنها تغيّر الأنوية المتاحة)، ثم باقي الإعدادات.
+# max قبل min حتى لا يتعارض الحدان.
+ORDER = ["smt", "cores", "governor", "epp", "max", "min", "turbo", "profile", "pl2", "pl1"]
+
+
+def apply_pairs(pairs):
+    if "pl1" in pairs and "pl2" in pairs:
+        try:
+            if int(pairs["pl2"]) < int(pairs["pl1"]):
+                print("pl2: الحد القصير يجب ألا يقل عن الحد الطويل", file=sys.stderr)
+                return 1
+        except ValueError:
+            print("pl1/pl2: قيمة غير رقمية", file=sys.stderr)
+            return 2
+    errors = []
+    for key in ORDER:
+        if key in pairs:
+            try:
+                ACTIONS[key](pairs[key])
+            except (ValueError, OSError) as e:
+                errors.append(f"{key}: {e}")
+    if errors:
+        print("\n".join(errors), file=sys.stderr)
+        return 1
+    return 0
+
+
+def main(argv):
+    if len(argv) >= 2 and argv[1] == "sample":
+        return cmd_sample()
+    if len(argv) >= 2 and argv[1] == "apply-boot":
+        return cmd_apply_boot()
+    if len(argv) < 2 or argv[1] != "apply":
+        print("usage: cputhrottle-helper apply key=value ... | apply-boot | sample", file=sys.stderr)
+        return 2
+    if os.geteuid() != 0:
+        print("يجب تشغيله بصلاحيات root (استخدم pkexec)", file=sys.stderr)
+        return 3
+
+    pairs = {}
+    for arg in argv[2:]:
+        key, sep, val = arg.partition("=")
+        if not sep or key not in ACTIONS:
+            print(f"وسيط غير صالح: {arg}", file=sys.stderr)
+            return 2
+        pairs[key] = val
+    return apply_pairs(pairs)
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

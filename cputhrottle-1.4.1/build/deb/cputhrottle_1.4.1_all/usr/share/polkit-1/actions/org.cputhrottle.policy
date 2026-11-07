@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
+<policyconfig>
+  <vendor>CPU Throttle</vendor>
+  <vendor_url>https://github.com/WiiPro38/cputhrottle-linux</vendor_url>
+
+  <action id="org.cputhrottle.apply">
+    <description>Change CPU performance settings</description>
+    <description xml:lang="ar">تغيير إعدادات أداء المعالج</description>
+    <message>Authentication is required to change CPU performance settings</message>
+    <message xml:lang="ar">مطلوب إذن لتغيير إعدادات أداء المعالج</message>
+    <!-- allow_active: auth_admin_keep = كلمة المرور مرة كل بضع دقائق (الافتراضي الآمن).
+         غيّرها إلى yes إذا أردت التبديل التلقائي/السريع بدون أي كلمة مرور
+         (يستطيع أي مستخدم نشط محلياً حينها تغيير إعدادات المعالج). -->
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/libexec/cputhrottle-helper</annotate>
+  </action>
+</policyconfig>
