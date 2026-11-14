@@ -1,0 +1,13 @@
+[Unit]
+Description=CPU Throttle - apply saved settings at boot
+After=multi-user.target local-fs.target
+ConditionPathExists=/usr/libexec/cputhrottle-helper
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/cputhrottle-helper apply-boot
+RemainAfterExit=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
