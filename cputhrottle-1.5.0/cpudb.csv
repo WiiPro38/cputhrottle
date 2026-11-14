@@ -1,0 +1,358 @@
+# CPU Throttle — CPU database (edit with any spreadsheet app; save as CSV, UTF-8).
+# Lines that start with # are ignored. One row per processor.
+#
+# match            Model tokens as they appear in the CPU name, e.g. "i5-8365U" or "Ryzen 7 5800H".
+#                  Every word must match exactly (so 5800H never matches 5800HS). More words = more specific.
+# cores/threads    Physical cores / logical threads.
+# base_ghz/boost_ghz  Base and maximum turbo clock.
+# tdp_w            Rated TDP (nominal) in watts.
+# pl1_min_w        Lowest sensible long-term limit (cTDP-down).
+# pl1_default_w    Recommended PL1 for this CPU (what "Use recommended" and Balanced apply).
+# pl1_max_w        Highest PL1 the app will let you set (cTDP-up). The PL1 box never goes above this.
+# pl2_default_w    Recommended short-term limit (PL2).   pl2_max_w  Highest PL2 the app will allow.
+# tjmax_c          Maximum junction temperature; the tray "hot" colour starts 10 C below it.
+# passmark_* / cinebench_r23_* / geekbench6_*   Reference benchmark scores (multi / single). Leave empty if unknown.
+# status           Free text, e.g. "verified" / "needs check".   notes  Free text.
+#
+# Your own file ~/.config/cputhrottle/cpudb.csv overrides this one (the app's "Add this CPU" button writes there).
+match,vendor,name,codename,cores,threads,base_ghz,boost_ghz,tdp_w,pl1_min_w,pl1_default_w,pl1_max_w,pl2_default_w,pl2_max_w,tjmax_c,passmark_multi,passmark_single,cinebench_r23_multi,cinebench_r23_single,geekbench6_multi,geekbench6_single,status,notes
+Ryzen 3 3200G,AMD,AMD Ryzen 3 3200G,Zen 2 APU,4,4,3.6,4.0,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 3 3200U,AMD,AMD Ryzen 3 3200U,Picasso/Dali,2,4,2.6,3.5,15,9,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 3 3300U,AMD,AMD Ryzen 3 3300U,Picasso/Dali,4,4,2.1,3.5,15,9,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 3 4300G,AMD,AMD Ryzen 3 4300G,Zen 3 APU,4,8,3.8,4.0,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 3 5300U,AMD,AMD Ryzen 3 5300U,Lucienne/Barcelo,4,8,2.6,3.8,15,10,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 1600,AMD,AMD Ryzen 5 1600,Zen,6,12,3.2,3.6,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 1600X,AMD,AMD Ryzen 5 1600X,Zen,6,12,3.6,4.0,95,95,95,95,128,128,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 2500U,AMD,AMD Ryzen 5 2500U,Raven/Picasso,4,8,2.0,3.6,15,9,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 2600,AMD,AMD Ryzen 5 2600,Zen+,6,12,3.4,3.9,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 2600X,AMD,AMD Ryzen 5 2600X,Zen+,6,12,3.6,4.2,95,95,95,95,128,128,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 3400G,AMD,AMD Ryzen 5 3400G,Zen 2 APU,4,8,3.7,4.2,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 3500U,AMD,AMD Ryzen 5 3500U,Raven/Picasso,4,8,2.1,3.7,15,9,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 3600,AMD,AMD Ryzen 5 3600,Zen 2,6,12,3.6,4.2,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 3600X,AMD,AMD Ryzen 5 3600X,Zen 2,6,12,3.8,4.4,95,95,95,95,128,128,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 3600XT,AMD,AMD Ryzen 5 3600XT,Zen 2,6,12,3.8,4.5,95,95,95,95,128,128,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 4500U,AMD,AMD Ryzen 5 4500U,Renoir-U,6,6,2.3,4.0,15,10,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 4600G,AMD,AMD Ryzen 5 4600G,Zen 3 APU,6,12,3.7,4.2,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 4600H,AMD,AMD Ryzen 5 4600H,Renoir-H,6,12,3.0,4.0,45,35,45,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 4600U,AMD,AMD Ryzen 5 4600U,Renoir-U,6,12,2.1,4.0,15,10,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 5500,AMD,AMD Ryzen 5 5500,Zen 3,6,12,3.6,4.2,65,65,65,65,88,88,90,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 5500GT,AMD,AMD Ryzen 5 5500GT,Zen 3 APU,6,12,3.6,4.4,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 5500U,AMD,AMD Ryzen 5 5500U,Lucienne/Cezanne-U,6,12,2.1,4.0,15,10,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 5600,AMD,AMD Ryzen 5 5600,Zen 3,6,12,3.5,4.4,65,65,65,65,88,88,90,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 5600G,AMD,AMD Ryzen 5 5600G,Zen 3 APU,6,12,3.9,4.4,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 5600GT,AMD,AMD Ryzen 5 5600GT,Zen 3 APU,6,12,3.6,4.6,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 5600H,AMD,AMD Ryzen 5 5600H,Cezanne-H,6,12,3.3,4.2,45,35,45,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 5600U,AMD,AMD Ryzen 5 5600U,Lucienne/Cezanne-U,6,12,2.3,4.2,15,10,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 5600X,AMD,AMD Ryzen 5 5600X,Zen 3,6,12,3.7,4.6,65,65,65,65,88,88,90,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 5625U,AMD,AMD Ryzen 5 5625U,Lucienne/Barcelo,6,12,2.3,4.3,15,10,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 6600H,AMD,AMD Ryzen 5 6600H,Rembrandt-H,6,12,3.3,4.5,45,35,45,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 6600HS,AMD,AMD Ryzen 5 6600HS,Rembrandt-HS,6,12,3.3,4.5,35,30,35,45,45,54,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 6600U,AMD,AMD Ryzen 5 6600U,Rembrandt-U,6,12,2.9,4.5,28,15,28,30,30,35,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 7500F,AMD,AMD Ryzen 5 7500F,Zen 4,6,12,3.7,5.0,65,65,65,65,88,88,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 7530U,AMD,AMD Ryzen 5 7530U,Barcelo/Rembrandt-R U,6,12,2.0,4.5,15,10,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 7535HS,AMD,AMD Ryzen 5 7535HS,Phoenix-HS,6,12,3.3,4.55,35,30,35,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 7600,AMD,AMD Ryzen 5 7600,Zen 4,6,12,3.8,5.1,65,65,65,65,88,88,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 7600X,AMD,AMD Ryzen 5 7600X,Zen 4,6,12,4.7,5.3,105,105,105,105,142,142,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 7600X3D,AMD,AMD Ryzen 5 7600X3D,Zen 4 3D,6,12,4.1,4.7,65,65,65,65,88,88,89,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 7640HS,AMD,AMD Ryzen 5 7640HS,Phoenix,6,12,4.3,5.0,35,30,35,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 7640U,AMD,AMD Ryzen 5 7640U,Phoenix-U,6,12,3.5,4.9,28,15,28,30,30,35,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 8500G,AMD,AMD Ryzen 5 8500G,Zen 4 APU,6,12,3.5,5.0,65,65,65,65,88,88,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 8600G,AMD,AMD Ryzen 5 8600G,Zen 4 APU,6,12,4.3,5.0,65,65,65,65,88,88,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 8640U,AMD,AMD Ryzen 5 8640U,Phoenix-U,6,12,3.5,4.9,28,15,28,30,30,35,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 8645HS,AMD,AMD Ryzen 5 8645HS,Phoenix-HS,6,12,4.3,5.0,35,30,35,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 5 9600X,AMD,AMD Ryzen 5 9600X,Zen 5,6,12,3.9,5.4,65,65,65,65,88,88,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 1700,AMD,AMD Ryzen 7 1700,Zen,8,16,3.0,3.7,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 1700X,AMD,AMD Ryzen 7 1700X,Zen,8,16,3.4,3.8,95,95,95,95,128,128,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 1800X,AMD,AMD Ryzen 7 1800X,Zen,8,16,3.6,4.0,95,95,95,95,128,128,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 2700,AMD,AMD Ryzen 7 2700,Zen+,8,16,3.2,4.1,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 2700U,AMD,AMD Ryzen 7 2700U,Raven/Picasso,4,8,2.2,3.8,15,9,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 2700X,AMD,AMD Ryzen 7 2700X,Zen+,8,16,3.7,4.3,95,95,95,95,128,128,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 3700U,AMD,AMD Ryzen 7 3700U,Raven/Picasso,4,8,2.3,4.0,15,9,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 3700X,AMD,AMD Ryzen 7 3700X,Zen 2,8,16,3.6,4.4,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 3800X,AMD,AMD Ryzen 7 3800X,Zen 2,8,16,3.9,4.5,95,95,95,95,128,128,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 3800XT,AMD,AMD Ryzen 7 3800XT,Zen 2,8,16,3.9,4.7,95,95,95,95,128,128,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 4700U,AMD,AMD Ryzen 7 4700U,Renoir-U,8,8,2.0,4.1,15,10,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 4800H,AMD,AMD Ryzen 7 4800H,Renoir-H,8,16,2.9,4.2,45,35,45,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 4800U,AMD,AMD Ryzen 7 4800U,Renoir-U,8,16,1.8,4.2,15,10,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 5700G,AMD,AMD Ryzen 7 5700G,Zen 3 APU,8,16,3.8,4.6,65,65,65,65,88,88,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 5700U,AMD,AMD Ryzen 7 5700U,Lucienne/Cezanne-U,8,16,1.8,4.3,15,10,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 5700X,AMD,AMD Ryzen 7 5700X,Zen 3,8,16,3.4,4.6,65,65,65,65,88,88,90,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 5700X3D,AMD,AMD Ryzen 7 5700X3D,Zen 3,8,16,3.0,4.1,105,105,105,105,142,142,90,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 5800H,AMD,AMD Ryzen 7 5800H,Cezanne-H,8,16,3.2,4.4,45,35,45,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 5800HS,AMD,AMD Ryzen 7 5800HS,Cezanne-HS,8,16,2.8,4.4,35,30,35,45,45,54,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 5800U,AMD,AMD Ryzen 7 5800U,Lucienne/Cezanne-U,8,16,1.9,4.4,15,10,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 5800X,AMD,AMD Ryzen 7 5800X,Zen 3,8,16,3.8,4.7,105,105,105,105,142,142,90,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 5800X3D,AMD,AMD Ryzen 7 5800X3D,Zen 3,8,16,3.4,4.5,105,105,105,105,142,142,90,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 5825U,AMD,AMD Ryzen 7 5825U,Lucienne/Barcelo,8,16,2.0,4.5,15,10,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 6800H,AMD,AMD Ryzen 7 6800H,Rembrandt-H,8,16,3.2,4.7,45,35,45,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 6800HS,AMD,AMD Ryzen 7 6800HS,Rembrandt-HS,8,16,3.2,4.7,35,30,35,45,45,54,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 6800U,AMD,AMD Ryzen 7 6800U,Rembrandt-U,8,16,2.7,4.7,28,15,28,30,30,35,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 7435HS,AMD,AMD Ryzen 7 7435HS,Phoenix-HS,8,16,3.1,4.5,35,30,35,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 7700,AMD,AMD Ryzen 7 7700,Zen 4,8,16,3.8,5.3,65,65,65,65,88,88,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 7700X,AMD,AMD Ryzen 7 7700X,Zen 4,8,16,4.5,5.4,105,105,105,105,142,142,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 7730U,AMD,AMD Ryzen 7 7730U,Barcelo/Rembrandt-R U,8,16,2.0,4.5,15,10,15,25,25,25,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 7735HS,AMD,AMD Ryzen 7 7735HS,Rembrandt-R,8,16,3.2,4.75,35,30,35,45,45,54,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 7745HX,AMD,AMD Ryzen 7 7745HX,Dragon Range,8,16,3.6,5.1,55,45,55,75,75,120,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 7800X3D,AMD,AMD Ryzen 7 7800X3D,Zen 4 3D,8,16,4.2,5.0,120,120,120,120,162,162,89,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 7840HS,AMD,AMD Ryzen 7 7840HS,Phoenix,8,16,3.8,5.1,35,30,35,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 7840U,AMD,AMD Ryzen 7 7840U,Phoenix-U,8,16,3.3,5.1,28,15,28,30,30,35,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 8700G,AMD,AMD Ryzen 7 8700G,Zen 4 APU,8,16,4.2,5.1,65,65,65,65,88,88,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 8840HS,AMD,AMD Ryzen 7 8840HS,Phoenix,8,16,3.3,5.1,35,30,35,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 8840U,AMD,AMD Ryzen 7 8840U,Phoenix-U,8,16,3.3,5.1,28,15,28,30,30,35,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 8845HS,AMD,AMD Ryzen 7 8845HS,Phoenix-HS,8,16,3.8,5.1,35,30,35,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 9700X,AMD,AMD Ryzen 7 9700X,Zen 5,8,16,3.8,5.5,65,65,65,65,88,88,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 7 9800X3D,AMD,AMD Ryzen 7 9800X3D,Zen 5 3D,8,16,4.7,5.2,120,120,120,120,162,162,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 3900X,AMD,AMD Ryzen 9 3900X,Zen 2,12,24,3.8,4.6,105,105,105,105,142,142,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 3900XT,AMD,AMD Ryzen 9 3900XT,Zen 2,12,24,3.8,4.7,105,105,105,105,142,142,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 3950X,AMD,AMD Ryzen 9 3950X,Zen 2,16,32,3.5,4.7,105,105,105,105,142,142,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 4900H,AMD,AMD Ryzen 9 4900H,Renoir-H,8,16,3.3,4.4,45,35,45,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 5900,AMD,AMD Ryzen 9 5900,Zen 3,12,24,3.0,4.7,65,65,65,65,88,88,90,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 5900HS,AMD,AMD Ryzen 9 5900HS,Cezanne-HS,8,16,3.0,4.6,35,30,35,45,45,54,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 5900HX,AMD,AMD Ryzen 9 5900HX,Cezanne-HX,8,16,3.3,4.6,45,35,45,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 5900X,AMD,AMD Ryzen 9 5900X,Zen 3,12,24,3.7,4.8,105,105,105,105,142,142,90,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 5900XT,AMD,AMD Ryzen 9 5900XT,Zen 3,16,32,3.3,4.8,105,105,105,105,142,142,90,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 5950X,AMD,AMD Ryzen 9 5950X,Zen 3,16,32,3.4,4.9,105,105,105,105,142,142,90,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 5950XT,AMD,AMD Ryzen 9 5950XT,Zen 3,16,32,3.4,4.9,105,105,105,105,142,142,90,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 5980HX,AMD,AMD Ryzen 9 5980HX,Cezanne-HX,8,16,3.3,4.8,45,35,45,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 6900HS,AMD,AMD Ryzen 9 6900HS,Rembrandt-HS,8,16,3.3,4.9,35,30,35,45,45,54,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 6900HX,AMD,AMD Ryzen 9 6900HX,Rembrandt-H,8,16,3.3,4.9,45,35,45,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 7845HX,AMD,AMD Ryzen 9 7845HX,Dragon Range,12,24,3.0,5.2,55,45,55,75,75,120,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 7900,AMD,AMD Ryzen 9 7900,Zen 4,12,24,3.7,5.4,65,65,65,65,88,88,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 7900X,AMD,AMD Ryzen 9 7900X,Zen 4,12,24,4.7,5.6,170,170,170,170,230,230,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 7900X3D,AMD,AMD Ryzen 9 7900X3D,Zen 4 3D,12,24,4.4,5.6,120,120,120,120,162,162,89,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 7940HS,AMD,AMD Ryzen 9 7940HS,Phoenix,8,16,4.0,5.2,35,30,35,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 7945HX,AMD,AMD Ryzen 9 7945HX,Dragon Range,16,32,2.5,5.4,55,45,55,75,75,120,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 7950X,AMD,AMD Ryzen 9 7950X,Zen 4,16,32,4.5,5.7,170,170,170,170,230,230,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 7950X3D,AMD,AMD Ryzen 9 7950X3D,Zen 4 3D,16,32,4.2,5.7,120,120,120,120,162,162,89,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 8945HS,AMD,AMD Ryzen 9 8945HS,Phoenix,8,16,4.0,5.2,35,30,35,54,54,65,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 9900X,AMD,AMD Ryzen 9 9900X,Zen 5,12,24,4.4,5.6,120,120,120,120,162,162,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 9950X,AMD,AMD Ryzen 9 9950X,Zen 5,16,32,4.3,5.7,170,170,170,170,230,230,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 9950X3D,AMD,AMD Ryzen 9 9950X3D,Zen 5,16,32,4.3,5.7,170,170,170,170,230,230,95,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 9955HX,AMD,AMD Ryzen 9 9955HX,Dragon Range,16,32,2.5,5.4,55,45,55,75,75,120,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen 9 9955HX3D,AMD,AMD Ryzen 9 9955HX3D,Fire Range,16,32,2.5,5.4,55,45,55,75,75,120,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen AI 7 350,AMD,AMD Ryzen AI 7 350,Strix Point,8,16,2.0,5.0,28,15,28,54,54,54,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen AI 9 365,AMD,AMD Ryzen AI 9 365,Strix Point,10,20,2.0,5.0,28,15,28,54,54,54,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen AI 9 HX 370,AMD,AMD Ryzen AI 9 HX 370,Strix Point,12,24,2.0,5.1,28,15,28,54,54,54,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen AI 9 HX 375,AMD,AMD Ryzen AI 9 HX 375,Strix Point,12,24,2.0,5.1,28,15,28,54,54,54,,,,,,,,seed - verify against the maker's spec sheet,"PL1 = sustained PPT, PL2 = fast PPT (approximate)"
+Ryzen Z1,AMD,AMD Ryzen Z1,Handheld,6,12,3.2,4.9,15,9,15,30,30,30,,,,,,,,seed - verify against the maker's spec sheet,"Handheld chip, cTDP 9-30 W"
+Ryzen Z1 Extreme,AMD,AMD Ryzen Z1 Extreme,Handheld,8,16,3.3,5.1,15,9,15,30,30,30,,,,,,,,seed - verify against the maker's spec sheet,"Handheld chip, cTDP 9-30 W"
+N4020,Intel,Intel Celeron N4020,Low-power,2,2,1.1,2.8,6,,6,6,6,6,,,,,,,,seed - verify against the maker's spec sheet,Single fixed power class
+N4120,Intel,Intel Celeron N4120,Low-power,4,4,1.1,2.6,6,,6,6,6,6,,,,,,,,seed - verify against the maker's spec sheet,Single fixed power class
+N5105,Intel,Intel Celeron N5105,Low-power,4,4,2.0,2.9,10,,10,10,10,10,,,,,,,,seed - verify against the maker's spec sheet,Single fixed power class
+Ultra 5 125H,Intel,Intel Core Ultra 5 125H,Meteor Lake-H,14,18,1.2,4.5,28,20,28,28,115,115,110,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+Ultra 5 125U,Intel,Intel Core Ultra 5 125U,Meteor Lake-U,12,14,1.3,4.3,15,9,15,15,57,57,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+Ultra 5 225H,Intel,Intel Core Ultra 5 225H,Arrow Lake-H,14,14,1.7,4.9,28,20,28,28,115,115,110,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+Ultra 5 226V,Intel,Intel Core Ultra 5 226V,Lunar Lake,8,8,2.1,4.5,17,8,17,30,37,37,100,,,,,,,seed - verify against the maker's spec sheet,Memory on package
+Ultra 5 245,Intel,Intel Core Ultra 5 245,Arrow Lake-S,14,14,3.5,5.1,65,65,65,65,121,121,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+Ultra 5 245K,Intel,Intel Core Ultra 5 245K,Arrow Lake-S,14,14,4.2,5.2,125,125,125,125,159,159,105,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+Ultra 7 155H,Intel,Intel Core Ultra 7 155H,Meteor Lake-H,16,22,1.4,4.8,28,20,28,28,115,115,110,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+Ultra 7 155U,Intel,Intel Core Ultra 7 155U,Meteor Lake-U,12,14,1.7,4.8,15,9,15,15,57,57,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+Ultra 7 165H,Intel,Intel Core Ultra 7 165H,Meteor Lake-H,16,22,1.4,5.0,28,20,28,28,115,115,110,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+Ultra 7 255H,Intel,Intel Core Ultra 7 255H,Arrow Lake-H,16,16,2.0,5.1,28,20,28,28,115,115,110,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+Ultra 7 256V,Intel,Intel Core Ultra 7 256V,Lunar Lake,8,8,2.2,4.8,17,8,17,30,37,37,100,,,,,,,seed - verify against the maker's spec sheet,Memory on package
+Ultra 7 258V,Intel,Intel Core Ultra 7 258V,Lunar Lake,8,8,2.2,4.8,17,8,17,30,37,37,100,,,,,,,seed - verify against the maker's spec sheet,Memory on package
+Ultra 7 265,Intel,Intel Core Ultra 7 265,Arrow Lake-S,20,20,2.4,5.3,65,65,65,65,182,182,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+Ultra 7 265K,Intel,Intel Core Ultra 7 265K,Arrow Lake-S,20,20,3.9,5.5,125,125,125,125,250,250,105,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+Ultra 9 185H,Intel,Intel Core Ultra 9 185H,Meteor Lake-H,16,22,2.3,5.1,45,35,45,45,115,115,110,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+Ultra 9 285,Intel,Intel Core Ultra 9 285,Arrow Lake-S,24,24,2.5,5.6,65,65,65,65,182,182,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+Ultra 9 285H,Intel,Intel Core Ultra 9 285H,Arrow Lake-H,16,16,2.9,5.4,45,35,45,45,115,115,110,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+Ultra 9 285K,Intel,Intel Core Ultra 9 285K,Arrow Lake-S,24,24,3.7,5.7,125,125,125,125,250,250,105,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+Ultra 9 288V,Intel,Intel Core Ultra 9 288V,Lunar Lake,8,8,3.3,5.1,30,17,30,37,37,37,100,,,,,,,seed - verify against the maker's spec sheet,Memory on package
+i3-10100,Intel,Intel Core i3-10100,Comet Lake-S,4,8,3.6,4.3,65,65,65,65,90,90,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i3-10100F,Intel,Intel Core i3-10100F,Comet Lake-S,4,8,3.6,4.3,65,65,65,65,90,90,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i3-10110U,Intel,Intel Core i3-10110U,Comet Lake-U,2,4,2.1,4.1,15,10,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i3-1115G4,Intel,Intel Core i3-1115G4,Tiger Lake-U,2,4,3.0,4.1,28,12,28,28,51,51,100,,,,,,,seed - verify against the maker's spec sheet,cTDP 12-28 W. PL2 approximate
+i3-12100,Intel,Intel Core i3-12100,Alder Lake-S,4,8,3.3,4.3,60,60,60,60,89,89,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i3-12100F,Intel,Intel Core i3-12100F,Alder Lake-S,4,8,3.3,4.3,60,60,60,60,89,89,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i3-1215U,Intel,Intel Core i3-1215U,Alder Lake-U,6,8,1.2,4.4,15,9,15,15,55,55,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i3-13100,Intel,Intel Core i3-13100,Raptor Lake-S,4,8,3.4,4.5,60,60,60,60,89,89,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i3-13100F,Intel,Intel Core i3-13100F,Raptor Lake-S,4,8,3.4,4.5,60,60,60,60,89,89,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i3-1315U,Intel,Intel Core i3-1315U,Raptor Lake-U,6,8,1.2,4.5,15,9,15,15,55,55,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i3-14100,Intel,Intel Core i3-14100,Raptor Lake Refresh-S,4,8,3.5,4.7,60,60,60,60,110,110,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i3-14100F,Intel,Intel Core i3-14100F,Raptor Lake Refresh-S,4,8,3.5,4.7,60,60,60,60,110,110,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i3-8130U,Intel,Intel Core i3-8130U,Coffee Lake-U,2,4,2.2,3.4,15,10,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i3-8145U,Intel,Intel Core i3-8145U,Whiskey Lake-U,2,4,2.1,3.9,15,10,15,25,25,25,100,,,,,,,seed - verify against Intel ARK,pl1 range = cTDP-down 10 W / base 15 W / cTDP-up 25 W. pl2 capped at the 25 W cTDP-up; raise pl2_max_w if you want Intel's higher turbo power.
+N305,Intel,Intel Core i3-N305,Low-power,8,8,1.8,3.8,15,,15,15,15,15,,,,,,,,seed - verify against the maker's spec sheet,Single fixed power class
+i5-10210U,Intel,Intel Core i5-10210U,Comet Lake-U,4,8,1.6,4.2,15,10,15,25,25,25,100,,,,,,,seed - verify against Intel ARK,pl1 range = cTDP-down 10 W / base 15 W / cTDP-up 25 W. pl2 capped at the 25 W cTDP-up; raise pl2_max_w if you want Intel's higher turbo power.
+i5-10300H,Intel,Intel Core i5-10300H,Comet Lake-H,4,8,2.5,4.5,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i5-10310U,Intel,Intel Core i5-10310U,Comet Lake-U,4,8,1.7,4.4,15,10,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i5-1035G1,Intel,Intel Core i5-1035G1,Ice Lake-U,4,8,1.0,3.6,15,12,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i5-1035G4,Intel,Intel Core i5-1035G4,Ice Lake-U,4,8,1.1,3.7,15,12,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i5-10400,Intel,Intel Core i5-10400,Comet Lake-S,6,12,2.9,4.3,65,65,65,65,134,134,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-10400F,Intel,Intel Core i5-10400F,Comet Lake-S,6,12,2.9,4.3,65,65,65,65,134,134,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i5-10500,Intel,Intel Core i5-10500,Comet Lake-S,6,12,3.1,4.5,65,65,65,65,134,134,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-10600,Intel,Intel Core i5-10600,Comet Lake-S,6,12,3.3,4.8,65,65,65,65,134,134,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-10600K,Intel,Intel Core i5-10600K,Comet Lake-S,6,12,4.1,4.8,125,125,125,125,182,182,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-10600KF,Intel,Intel Core i5-10600KF,Comet Lake-S,6,12,4.1,4.8,125,125,125,125,182,182,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i5-11260H,Intel,Intel Core i5-11260H,Tiger Lake-H35,6,12,2.1,4.4,35,28,35,35,60,60,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i5-11300H,Intel,Intel Core i5-11300H,Tiger Lake-H,4,8,3.1,4.4,35,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i5-1135G7,Intel,Intel Core i5-1135G7,Tiger Lake-U,4,8,2.4,4.2,28,12,28,28,51,51,100,,,,,,,seed - verify against the maker's spec sheet,cTDP 12-28 W. PL2 approximate
+i5-11400,Intel,Intel Core i5-11400,Rocket Lake-S,6,12,2.6,4.4,65,65,65,65,154,154,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-11400F,Intel,Intel Core i5-11400F,Rocket Lake-S,6,12,2.6,4.4,65,65,65,65,154,154,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i5-11400H,Intel,Intel Core i5-11400H,Tiger Lake-H,6,12,2.7,4.5,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i5-11500,Intel,Intel Core i5-11500,Rocket Lake-S,6,12,2.7,4.6,65,65,65,65,154,154,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-11500H,Intel,Intel Core i5-11500H,Tiger Lake-H,6,12,2.9,4.6,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i5-11600,Intel,Intel Core i5-11600,Rocket Lake-S,6,12,2.8,4.8,65,65,65,65,154,154,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-11600K,Intel,Intel Core i5-11600K,Rocket Lake-S,6,12,3.9,4.9,125,125,125,125,251,251,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-11600KF,Intel,Intel Core i5-11600KF,Rocket Lake-S,6,12,3.9,4.9,125,125,125,125,251,251,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i5-1235U,Intel,Intel Core i5-1235U,Alder Lake-U,10,12,1.3,4.4,15,9,15,15,55,55,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i5-12400,Intel,Intel Core i5-12400,Alder Lake-S,6,12,2.5,4.4,65,65,65,65,117,117,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-12400F,Intel,Intel Core i5-12400F,Alder Lake-S,6,12,2.5,4.4,65,65,65,65,117,117,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i5-1240P,Intel,Intel Core i5-1240P,Alder Lake-P,12,16,1.7,4.4,28,20,28,28,64,64,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i5-12450H,Intel,Intel Core i5-12450H,Alder Lake-H,8,12,2.0,4.4,45,35,45,45,95,95,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i5-12450HX,Intel,Intel Core i5-12450HX,Alder Lake-HX,8,12,2.4,4.4,55,45,55,55,157,157,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i5-1245U,Intel,Intel Core i5-1245U,Alder Lake-U,10,12,1.6,4.4,15,9,15,15,55,55,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i5-12500,Intel,Intel Core i5-12500,Alder Lake-S,6,12,3.0,4.6,65,65,65,65,117,117,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-12500H,Intel,Intel Core i5-12500H,Alder Lake-H,12,16,2.5,4.5,45,35,45,45,115,115,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i5-12600,Intel,Intel Core i5-12600,Alder Lake-S,6,12,3.3,4.8,65,65,65,65,117,117,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-12600K,Intel,Intel Core i5-12600K,Alder Lake-S,10,16,3.7,4.9,125,125,125,125,150,150,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-12600KF,Intel,Intel Core i5-12600KF,Alder Lake-S,10,16,3.7,4.9,125,125,125,125,150,150,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i5-1335U,Intel,Intel Core i5-1335U,Raptor Lake-U,10,12,1.3,4.6,15,9,15,15,55,55,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i5-13400,Intel,Intel Core i5-13400,Raptor Lake-S,10,16,2.5,4.6,65,65,65,65,148,148,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-13400F,Intel,Intel Core i5-13400F,Raptor Lake-S,10,16,2.5,4.6,65,65,65,65,148,148,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i5-1340P,Intel,Intel Core i5-1340P,Raptor Lake-P,12,16,1.9,4.6,28,20,28,28,64,64,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i5-13420H,Intel,Intel Core i5-13420H,Raptor Lake-H,8,12,2.1,4.6,45,35,45,45,95,95,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i5-13450HX,Intel,Intel Core i5-13450HX,Raptor Lake-HX,10,16,2.4,4.6,55,45,55,55,157,157,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i5-1345U,Intel,Intel Core i5-1345U,Raptor Lake-U,10,12,1.6,4.7,15,9,15,15,55,55,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i5-13500,Intel,Intel Core i5-13500,Raptor Lake-S,14,20,2.5,4.8,65,65,65,65,154,154,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-13500H,Intel,Intel Core i5-13500H,Raptor Lake-H,12,16,2.6,4.7,45,35,45,45,115,115,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i5-13500HX,Intel,Intel Core i5-13500HX,Raptor Lake-HX,14,20,2.5,4.7,55,45,55,55,157,157,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i5-13600,Intel,Intel Core i5-13600,Raptor Lake-S,14,20,2.7,5.0,65,65,65,65,154,154,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-13600K,Intel,Intel Core i5-13600K,Raptor Lake-S,14,20,3.5,5.1,125,125,125,125,181,181,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-13600KF,Intel,Intel Core i5-13600KF,Raptor Lake-S,14,20,3.5,5.1,125,125,125,125,181,181,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i5-14400,Intel,Intel Core i5-14400,Raptor Lake Refresh-S,10,16,2.5,4.7,65,65,65,65,148,148,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-14400F,Intel,Intel Core i5-14400F,Raptor Lake Refresh-S,10,16,2.5,4.7,65,65,65,65,148,148,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i5-14500,Intel,Intel Core i5-14500,Raptor Lake Refresh-S,14,20,2.6,5.0,65,65,65,65,154,154,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-14600,Intel,Intel Core i5-14600,Raptor Lake Refresh-S,14,20,2.7,5.2,65,65,65,65,154,154,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-14600K,Intel,Intel Core i5-14600K,Raptor Lake Refresh-S,14,20,3.5,5.3,125,125,125,125,181,181,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i5-14600KF,Intel,Intel Core i5-14600KF,Raptor Lake Refresh-S,14,20,3.5,5.3,125,125,125,125,181,181,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i5-4210U,Intel,Intel Core i5-4210U,Haswell-U,2,4,1.7,2.7,15,11.5,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,cTDP 11.5-25 W; PL2 capped at cTDP-up
+i5-6200U,Intel,Intel Core i5-6200U,Skylake-U,2,4,2.3,2.8,15,7.5,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i5-6300U,Intel,Intel Core i5-6300U,Skylake-U,2,4,2.4,3.0,15,7.5,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i5-6500,Intel,Intel Core i5-6500,Skylake/Kaby/Coffee-S,4,4,3.2,3.6,65,65,65,65,80,80,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i5-7200U,Intel,Intel Core i5-7200U,Kaby Lake-U,2,4,2.5,3.1,15,7.5,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i5-7300U,Intel,Intel Core i5-7300U,Kaby Lake-U,2,4,2.6,3.5,15,7.5,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i5-7500,Intel,Intel Core i5-7500,Skylake/Kaby/Coffee-S,4,4,3.4,3.8,65,65,65,65,80,80,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i5-7600K,Intel,Intel Core i5-7600K,Skylake/Kaby/Coffee-S,4,4,3.8,4.2,91,91,91,91,110,110,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i5-8250U,Intel,Intel Core i5-8250U,Kaby Lake-R,4,8,1.6,3.4,15,10,15,25,25,25,100,,,,,,,seed - verify against Intel ARK,pl1 range = cTDP-down 10 W / base 15 W / cTDP-up 25 W. pl2 capped at the 25 W cTDP-up; raise pl2_max_w if you want Intel's higher turbo power.
+i5-8265U,Intel,Intel Core i5-8265U,Whiskey Lake-U,4,8,1.6,3.9,15,10,15,25,25,25,100,,,,,,,seed - verify against Intel ARK,pl1 range = cTDP-down 10 W / base 15 W / cTDP-up 25 W. pl2 capped at the 25 W cTDP-up; raise pl2_max_w if you want Intel's higher turbo power.
+i5-8300H,Intel,Intel Core i5-8300H,Coffee Lake-H,4,8,2.3,4.0,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i5-8350U,Intel,Intel Core i5-8350U,Kaby Lake-R,4,8,1.7,3.6,15,10,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i5-8365U,Intel,Intel Core i5-8365U,Whiskey Lake-U,4,8,1.6,4.1,15,10,15,25,25,25,100,,,,,,,seed - verify against Intel ARK,pl1 range = cTDP-down 10 W / base 15 W / cTDP-up 25 W. pl2 capped at the 25 W cTDP-up; raise pl2_max_w if you want Intel's higher turbo power.
+i5-8400,Intel,Intel Core i5-8400,Skylake/Kaby/Coffee-S,6,6,2.8,4.0,65,65,65,65,80,80,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i5-8600K,Intel,Intel Core i5-8600K,Skylake/Kaby/Coffee-S,6,6,3.6,4.3,95,95,95,95,119,119,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i5-9300H,Intel,Intel Core i5-9300H,Coffee Lake Refresh-H,4,8,2.4,4.1,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i5-9400,Intel,Intel Core i5-9400,Skylake/Kaby/Coffee-S,6,6,2.9,4.1,65,65,65,65,80,80,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i5-9400F,Intel,Intel Core i5-9400F,Skylake/Kaby/Coffee-S,6,6,2.9,4.1,65,65,65,65,80,80,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate; no integrated graphics"
+i5-9600K,Intel,Intel Core i5-9600K,Skylake/Kaby/Coffee-S,6,6,3.7,4.6,95,95,95,95,119,119,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i5-9600KF,Intel,Intel Core i5-9600KF,Skylake/Kaby/Coffee-S,6,6,3.7,4.6,95,95,95,95,119,119,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate; no integrated graphics"
+i7-10510U,Intel,Intel Core i7-10510U,Comet Lake-U,4,8,1.8,4.9,15,10,15,25,25,25,100,,,,,,,seed - verify against Intel ARK,pl1 range = cTDP-down 10 W / base 15 W / cTDP-up 25 W. pl2 capped at the 25 W cTDP-up; raise pl2_max_w if you want Intel's higher turbo power.
+i7-10610U,Intel,Intel Core i7-10610U,Comet Lake-U,4,8,1.8,4.9,15,10,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i7-1065G7,Intel,Intel Core i7-1065G7,Ice Lake-U,4,8,1.3,3.9,15,12,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i7-10700,Intel,Intel Core i7-10700,Comet Lake-S,8,16,2.9,4.8,65,65,65,65,224,224,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i7-10700F,Intel,Intel Core i7-10700F,Comet Lake-S,8,16,2.9,4.8,65,65,65,65,224,224,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i7-10700K,Intel,Intel Core i7-10700K,Comet Lake-S,8,16,3.8,5.1,125,125,125,125,229,229,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i7-10700KF,Intel,Intel Core i7-10700KF,Comet Lake-S,8,16,3.8,5.1,125,125,125,125,229,229,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i7-10750H,Intel,Intel Core i7-10750H,Comet Lake-H,6,12,2.6,5.0,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-10850H,Intel,Intel Core i7-10850H,Comet Lake-H,6,12,2.7,5.1,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-11370H,Intel,Intel Core i7-11370H,Tiger Lake-H,4,8,3.3,4.8,35,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-11600H,Intel,Intel Core i7-11600H,Tiger Lake-H,6,12,2.9,4.6,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-1165G7,Intel,Intel Core i7-1165G7,Tiger Lake-U,4,8,2.8,4.7,28,12,28,28,51,51,100,,,,,,,seed - verify against the maker's spec sheet,cTDP 12-28 W. PL2 approximate
+i7-11700,Intel,Intel Core i7-11700,Rocket Lake-S,8,16,2.5,4.9,65,65,65,65,154,154,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i7-11700F,Intel,Intel Core i7-11700F,Rocket Lake-S,8,16,2.5,4.9,65,65,65,65,154,154,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i7-11700K,Intel,Intel Core i7-11700K,Rocket Lake-S,8,16,3.6,5.0,125,125,125,125,251,251,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i7-11700KF,Intel,Intel Core i7-11700KF,Rocket Lake-S,8,16,3.6,5.0,125,125,125,125,251,251,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i7-11800H,Intel,Intel Core i7-11800H,Tiger Lake-H,8,16,2.3,4.6,35,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-1185G7,Intel,Intel Core i7-1185G7,Tiger Lake-U,4,8,3.0,4.8,28,12,28,28,51,51,100,,,,,,,seed - verify against the maker's spec sheet,cTDP 12-28 W. PL2 approximate
+i7-1255U,Intel,Intel Core i7-1255U,Alder Lake-U,10,12,1.7,4.7,15,9,15,15,55,55,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i7-1260P,Intel,Intel Core i7-1260P,Alder Lake-P,12,16,2.1,4.7,28,20,28,28,64,64,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i7-12650H,Intel,Intel Core i7-12650H,Alder Lake-H,10,16,2.3,4.7,45,35,45,45,95,95,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-12650HX,Intel,Intel Core i7-12650HX,Alder Lake-HX,14,20,2.3,4.7,55,45,55,55,157,157,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-1265U,Intel,Intel Core i7-1265U,Alder Lake-U,10,12,1.8,4.8,15,9,15,15,55,55,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i7-12700,Intel,Intel Core i7-12700,Alder Lake-S,12,20,2.1,4.9,65,65,65,65,180,180,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i7-12700F,Intel,Intel Core i7-12700F,Alder Lake-S,12,20,2.1,4.9,65,65,65,65,180,180,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i7-12700H,Intel,Intel Core i7-12700H,Alder Lake-H,14,20,2.3,4.7,45,35,45,45,115,115,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i7-12700K,Intel,Intel Core i7-12700K,Alder Lake-S,12,20,3.6,5.0,125,125,125,125,190,190,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i7-12700KF,Intel,Intel Core i7-12700KF,Alder Lake-S,12,20,3.6,5.0,125,125,125,125,190,190,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i7-1270P,Intel,Intel Core i7-1270P,Alder Lake-P,12,16,2.2,4.8,28,20,28,28,64,64,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i7-12800H,Intel,Intel Core i7-12800H,Alder Lake-H,14,20,2.4,4.8,45,35,45,45,95,95,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-12800HX,Intel,Intel Core i7-12800HX,Alder Lake-HX,16,24,2.0,4.8,55,45,55,55,157,157,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-1280P,Intel,Intel Core i7-1280P,Alder Lake-P,14,20,1.8,4.8,28,20,28,28,64,64,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i7-1355U,Intel,Intel Core i7-1355U,Raptor Lake-U,10,12,1.7,5.0,15,9,15,15,55,55,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i7-1360P,Intel,Intel Core i7-1360P,Raptor Lake-P,12,16,2.2,5.0,28,20,28,28,64,64,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i7-13620H,Intel,Intel Core i7-13620H,Raptor Lake-H,10,16,2.4,4.9,45,35,45,45,95,95,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-13650HX,Intel,Intel Core i7-13650HX,Raptor Lake-HX,14,20,2.6,4.9,55,45,55,55,157,157,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-1365U,Intel,Intel Core i7-1365U,Raptor Lake-U,10,12,1.8,5.2,15,9,15,15,55,55,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i7-13700,Intel,Intel Core i7-13700,Raptor Lake-S,16,24,2.1,5.2,65,65,65,65,219,219,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i7-13700F,Intel,Intel Core i7-13700F,Raptor Lake-S,16,24,2.1,5.2,65,65,65,65,219,219,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i7-13700H,Intel,Intel Core i7-13700H,Raptor Lake-H,14,20,2.4,5.0,45,35,45,45,115,115,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i7-13700HX,Intel,Intel Core i7-13700HX,Raptor Lake-HX,16,24,2.1,5.0,55,45,55,55,157,157,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i7-13700K,Intel,Intel Core i7-13700K,Raptor Lake-S,16,24,3.4,5.4,125,125,125,125,253,253,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i7-13700KF,Intel,Intel Core i7-13700KF,Raptor Lake-S,16,24,3.4,5.4,125,125,125,125,253,253,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i7-1370P,Intel,Intel Core i7-1370P,Raptor Lake-P,14,20,1.9,5.2,28,20,28,28,64,64,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-14700,Intel,Intel Core i7-14700,Raptor Lake Refresh-S,20,28,2.1,5.4,65,65,65,65,219,219,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i7-14700F,Intel,Intel Core i7-14700F,Raptor Lake Refresh-S,20,28,2.1,5.4,65,65,65,65,219,219,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i7-14700HX,Intel,Intel Core i7-14700HX,Raptor Lake-HX,20,28,2.1,5.5,55,45,55,55,157,157,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i7-14700K,Intel,Intel Core i7-14700K,Raptor Lake Refresh-S,20,28,3.4,5.6,125,125,125,125,253,253,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i7-14700KF,Intel,Intel Core i7-14700KF,Raptor Lake Refresh-S,20,28,3.4,5.6,125,125,125,125,253,253,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i7-4510U,Intel,Intel Core i7-4510U,Haswell-U,2,4,2.0,3.1,15,11.5,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,cTDP 11.5-25 W; PL2 capped at cTDP-up
+i7-6500U,Intel,Intel Core i7-6500U,Skylake-U,2,4,2.5,3.1,15,7.5,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i7-6600U,Intel,Intel Core i7-6600U,Skylake-U,2,4,2.6,3.4,15,7.5,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i7-6700,Intel,Intel Core i7-6700,Skylake/Kaby/Coffee-S,4,8,3.4,4.0,65,65,65,65,80,80,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i7-6700K,Intel,Intel Core i7-6700K,Skylake/Kaby/Coffee-S,4,8,4.0,4.2,91,91,91,91,110,110,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i7-7500U,Intel,Intel Core i7-7500U,Kaby Lake-U,2,4,2.7,3.5,15,7.5,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i7-7600U,Intel,Intel Core i7-7600U,Kaby Lake-U,2,4,2.8,3.9,15,7.5,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i7-7700,Intel,Intel Core i7-7700,Skylake/Kaby/Coffee-S,4,8,3.6,4.2,65,65,65,65,80,80,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i7-7700K,Intel,Intel Core i7-7700K,Skylake/Kaby/Coffee-S,4,8,4.2,4.5,91,91,91,91,110,110,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i7-8550U,Intel,Intel Core i7-8550U,Kaby Lake-R,4,8,1.8,4.0,15,10,15,25,25,25,100,,,,,,,seed - verify against Intel ARK,pl1 range = cTDP-down 10 W / base 15 W / cTDP-up 25 W. pl2 capped at the 25 W cTDP-up; raise pl2_max_w if you want Intel's higher turbo power.
+i7-8565U,Intel,Intel Core i7-8565U,Whiskey Lake-U,4,8,1.8,4.6,15,10,15,25,25,25,100,,,,,,,seed - verify against Intel ARK,pl1 range = cTDP-down 10 W / base 15 W / cTDP-up 25 W. pl2 capped at the 25 W cTDP-up; raise pl2_max_w if you want Intel's higher turbo power.
+i7-8650U,Intel,Intel Core i7-8650U,Kaby Lake-R,4,8,1.9,4.2,15,10,15,25,25,25,100,,,,,,,seed - verify against the maker's spec sheet,pl1 range = cTDP-down / nominal / cTDP-up. PL2 capped at the cTDP-up (25 W).
+i7-8665U,Intel,Intel Core i7-8665U,Whiskey Lake-U,4,8,1.9,4.8,15,10,15,25,25,25,100,,,,,,,seed - verify against Intel ARK,pl1 range = cTDP-down 10 W / base 15 W / cTDP-up 25 W. pl2 capped at the 25 W cTDP-up; raise pl2_max_w if you want Intel's higher turbo power.
+i7-8700,Intel,Intel Core i7-8700,Skylake/Kaby/Coffee-S,6,12,3.2,4.6,65,65,65,65,86,86,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i7-8700K,Intel,Intel Core i7-8700K,Skylake/Kaby/Coffee-S,6,12,3.7,4.7,95,95,95,95,119,119,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i7-8750H,Intel,Intel Core i7-8750H,Coffee Lake-H,6,12,2.2,4.1,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-8850H,Intel,Intel Core i7-8850H,Coffee Lake-H,6,12,2.6,4.3,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i7-9700,Intel,Intel Core i7-9700,Skylake/Kaby/Coffee-S,8,8,3.0,4.7,65,65,65,65,89,89,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i7-9700F,Intel,Intel Core i7-9700F,Skylake/Kaby/Coffee-S,8,8,3.0,4.7,65,65,65,65,89,89,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate; no integrated graphics"
+i7-9700K,Intel,Intel Core i7-9700K,Skylake/Kaby/Coffee-S,8,8,3.6,4.9,95,95,95,95,119,119,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i7-9700KF,Intel,Intel Core i7-9700KF,Skylake/Kaby/Coffee-S,8,8,3.6,4.9,95,95,95,95,119,119,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate; no integrated graphics"
+i7-9750H,Intel,Intel Core i7-9750H,Coffee Lake Refresh-H,6,12,2.6,4.5,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i9-10850K,Intel,Intel Core i9-10850K,Comet Lake-S,10,20,3.6,5.2,125,125,125,125,250,250,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i9-10900,Intel,Intel Core i9-10900,Comet Lake-S,10,20,2.8,5.2,65,65,65,65,224,224,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i9-10900F,Intel,Intel Core i9-10900F,Comet Lake-S,10,20,2.8,5.2,65,65,65,65,224,224,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i9-10900K,Intel,Intel Core i9-10900K,Comet Lake-S,10,20,3.7,5.3,125,125,125,125,250,250,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i9-10900KF,Intel,Intel Core i9-10900KF,Comet Lake-S,10,20,3.7,5.3,125,125,125,125,250,250,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i9-10980HK,Intel,Intel Core i9-10980HK,Comet Lake-H,8,16,2.4,5.3,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i9-11900,Intel,Intel Core i9-11900,Rocket Lake-S,8,16,2.5,5.2,65,65,65,65,224,224,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i9-11900F,Intel,Intel Core i9-11900F,Rocket Lake-S,8,16,2.5,5.2,65,65,65,65,224,224,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i9-11900H,Intel,Intel Core i9-11900H,Tiger Lake-H,8,16,2.5,4.9,35,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i9-11900K,Intel,Intel Core i9-11900K,Rocket Lake-S,8,16,3.5,5.3,125,125,125,125,251,251,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i9-11900KF,Intel,Intel Core i9-11900KF,Rocket Lake-S,8,16,3.5,5.3,125,125,125,125,251,251,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i9-12900,Intel,Intel Core i9-12900,Alder Lake-S,16,24,2.4,5.1,65,65,65,65,202,202,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i9-12900F,Intel,Intel Core i9-12900F,Alder Lake-S,16,24,2.4,5.1,65,65,65,65,202,202,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i9-12900H,Intel,Intel Core i9-12900H,Alder Lake-H,14,20,2.5,5.0,45,35,45,45,115,115,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i9-12900HX,Intel,Intel Core i9-12900HX,Alder Lake-HX,16,24,2.3,5.0,55,45,55,55,157,157,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i9-12900K,Intel,Intel Core i9-12900K,Alder Lake-S,16,24,3.2,5.2,125,125,125,125,241,241,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i9-12900KF,Intel,Intel Core i9-12900KF,Alder Lake-S,16,24,3.2,5.2,125,125,125,125,241,241,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i9-12950HX,Intel,Intel Core i9-12950HX,Alder Lake-HX,16,24,2.3,5.0,55,45,55,55,157,157,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i9-13900,Intel,Intel Core i9-13900,Raptor Lake-S,24,32,2.0,5.6,65,65,65,65,219,219,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i9-13900F,Intel,Intel Core i9-13900F,Raptor Lake-S,24,32,2.0,5.6,65,65,65,65,219,219,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i9-13900H,Intel,Intel Core i9-13900H,Raptor Lake-H,14,20,2.6,5.4,45,35,45,45,115,115,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i9-13900HX,Intel,Intel Core i9-13900HX,Raptor Lake-HX,24,32,2.2,5.4,55,45,55,55,157,157,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i9-13900K,Intel,Intel Core i9-13900K,Raptor Lake-S,24,32,3.0,5.8,125,125,125,125,253,253,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i9-13900KF,Intel,Intel Core i9-13900KF,Raptor Lake-S,24,32,3.0,5.8,125,125,125,125,253,253,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i9-13980HX,Intel,Intel Core i9-13980HX,Raptor Lake-HX,24,32,2.2,5.6,55,45,55,55,157,157,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i9-14900,Intel,Intel Core i9-14900,Raptor Lake Refresh-S,24,32,2.0,5.8,65,65,65,65,219,219,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i9-14900F,Intel,Intel Core i9-14900F,Raptor Lake Refresh-S,24,32,2.0,5.8,65,65,65,65,219,219,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i9-14900HX,Intel,Intel Core i9-14900HX,Raptor Lake-HX,24,32,2.2,5.8,55,45,55,55,157,157,100,,,,,,,seed - verify against the maker's spec sheet,PL2 = Intel max turbo power
+i9-14900K,Intel,Intel Core i9-14900K,Raptor Lake Refresh-S,24,32,3.2,6.0,125,125,125,125,253,253,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power"
+i9-14900KF,Intel,Intel Core i9-14900KF,Raptor Lake Refresh-S,24,32,3.2,6.0,125,125,125,125,253,253,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 = Intel max turbo power; no integrated graphics"
+i9-9880H,Intel,Intel Core i9-9880H,Coffee Lake Refresh-H,8,16,2.3,4.8,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+i9-9900,Intel,Intel Core i9-9900,Skylake/Kaby/Coffee-S,8,16,3.1,5.0,65,65,65,65,119,119,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i9-9900K,Intel,Intel Core i9-9900K,Skylake/Kaby/Coffee-S,8,16,3.6,5.0,95,95,95,95,119,119,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate"
+i9-9900KF,Intel,Intel Core i9-9900KF,Skylake/Kaby/Coffee-S,8,16,3.6,5.0,95,95,95,95,119,119,100,,,,,,,seed - verify against the maker's spec sheet,"PL1 = TDP, PL2 approximate; no integrated graphics"
+i9-9980HK,Intel,Intel Core i9-9980HK,Coffee Lake Refresh-H,8,16,2.4,5.0,45,35,45,45,65,65,100,,,,,,,seed - verify against the maker's spec sheet,PL2 approximate
+N100,Intel,Intel N100,Low-power,4,4,0.8,3.4,6,,6,6,6,6,,,,,,,,seed - verify against the maker's spec sheet,Single fixed power class
+N200,Intel,Intel N200,Low-power,4,4,1.0,3.7,6,,6,6,6,6,,,,,,,,seed - verify against the maker's spec sheet,Single fixed power class
+N95,Intel,Intel N95,Low-power,4,4,1.7,3.4,15,,15,15,15,15,,,,,,,,seed - verify against the maker's spec sheet,Single fixed power class
+N5000,Intel,Intel Pentium Silver N5000,Low-power,4,4,1.1,2.7,6,,6,6,6,6,,,,,,,,seed - verify against the maker's spec sheet,Single fixed power class

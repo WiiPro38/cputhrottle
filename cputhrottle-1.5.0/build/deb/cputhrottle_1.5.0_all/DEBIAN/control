@@ -1,0 +1,15 @@
+Package: cputhrottle
+Version: 1.5.0
+Architecture: all
+Maintainer: WiiPro38 <wiipro@local>
+Section: utils
+Priority: optional
+Depends: python3, python3-gi, python3-gi-cairo, python3-cairo, gir1.2-gtk-3.0, pkexec | policykit-1
+Recommends: gir1.2-ayatanaappindicator3-0.1, pciutils
+Homepage: https://github.com/WiiPro38/cputhrottle-linux
+Description: Control CPU performance, power limits and sensors
+ Lightweight Python/GTK3 app to control CPU governors, frequency, Turbo Boost,
+ power limits (PL1/PL2) and platform profile, with live CPU/GPU temperature and
+ wattage sensors and a light/dark theme. Privileged changes go through polkit,
+ so no sudo is needed. Personal, non-commercial use only; no redistribution
+ (see /usr/share/doc/cputhrottle/copyright).
