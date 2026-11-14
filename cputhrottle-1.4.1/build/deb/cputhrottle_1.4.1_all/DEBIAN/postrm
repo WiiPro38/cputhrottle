@@ -1,4 +1,0 @@
-#!/bin/sh
-set -e
-[ -d /run/systemd/system ] && systemctl daemon-reload || true
-exit 0
